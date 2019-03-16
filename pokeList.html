@@ -2,9 +2,10 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8" />
-	<title>Pokédex - @nicolas</title>
+	<title>Pokédex - Maker Project</title>
 	<link rel="icon" href="http://www.serebii.net/pokemongo/pokemon/025.png" />
 	<link href="https://fonts.googleapis.com/css?family=Bangers" rel="stylesheet">
+	<script type = "text/javascript" src = "Pokedex.js" ></script>
 	<style>body,input{font-family:monospace}body{background:#ECEFF1;box-sizing:border-box}*,:after,:before{box-sizing:inherit}img,ul{margin:0;padding:0}form{max-width:750px;margin:50px auto;}h1{letter-spacing: -5px;font-family: 'Bangers', cursive;color:#ffcb05;-webkit-text-stroke-width: 1px;-webkit-text-stroke-color: #0071b9;text-align: center;font-size: 151px;margin:10px;}ul li{background:#fff;list-style:none;font-size:24px;padding:20px;box-shadow:2px 0 10px rgba(0,0,0,.2);display:flex;justify-content:space-between}input{width:100%;margin:0;font-size:36px;padding:10px;color:#1d1d1d;border:5px solid #0071b9;border-width:0 0 5px;outline:0;box-shadow:0 5px 10px rgba(0,0,0,.2)}</style>
 </head>
 <body>
@@ -16,13 +17,21 @@
 	</form>
 
 	<script>
+
 		const pokedex = 'https://raw.githubusercontent.com/Biuni/PokemonGO-Pokedex/master/pokedex.json';
 
         const pokemons = [];
 
+		const colorWeak = [];
+
+		fetch(pokedex)
+			.then(res => res.json())
+			.then(req => colorWeak.push(...req.weaknesses));
+
 		fetch(pokedex)
             .then(blob => blob.json())
 			.then(data => pokemons.push(...data.pokemon));
+
 
 		function trouverPokemon(recherche, pokemons) {
 			return pokemons.filter(pokemons => {
@@ -30,21 +39,339 @@
 				return pokemons.name.match(regex) || pokemons.type.find(type => type.match(regex));
 			});
 		}
+		function type(pokemons)	{
+    var type = pokemons.type[0];
+    var color = {Grass: "#008000", Poison: "#800080", Fire: "#840000", Water: "#000084", 
+                Fighting: "#C42301", Dragon: "#AC04B4", Electric: "#F2EF0B", Ice: "#0BEFF2", Bug: "#2CCE04", Normal: "#B2B2B2", Psychic: "#EE009B", Rock: "#A87303", 
+                Ground: "#E49C03", Spectre: "#8F03E4", Flyinging: "#04C9E1"}
+
+    if (type === "Fighting")
+            return '<span style="background-color: '+color.Fighting+'; width: 60px; height: 20px; text-align: center; color: white; border-radius: 6px; font-size: 10px"> Fighting </span>';
+    if (type === "Dragon")
+            return '<span style="background-color: '+color.Dragon+'; width: 60px; height: 20px; text-align: center; color: white; border-radius: 6px; font-size: 10px"> Dragon </span>';
+    if (type === "Water")
+            return '<span style="background-color: '+color.Water+'; width: 60px; height: 20px; text-align: center; color: white; border-radius: 6px; font-size: 10px"> Water </span>';
+    if (type === "Electric")
+            return '<span style="background-color: '+color.Electric+'; width: 60px; height: 20px; text-align: center; color: white; border-radius: 6px; font-size: 10px"> Electric </span>';
+    if (type === "Fire")
+            return '<span style="background-color: '+color.Fire+'; width: 60px; height: 20px; text-align: center; color: white; border-radius: 6px; font-size: 10px"> Fire </span>';
+    if (type === "Ice")
+            return '<span style="background-color: '+color.Ice+'; width: 60px; height: 20px; text-align: center; color: white; border-radius: 6px; font-size: 10px"> Ice </span>';										
+    if (type === "Bug")
+            return '<span style="background-color: '+color.Bug+'; width: 60px; height: 20px; text-align: center; color: white; border-radius: 6px; font-size: 10px"> Bug </span>';
+    if (type === "Normal")
+            return '<span style="background-color: '+color.Normal+'; width: 60px; height: 20px; text-align: center; color: white; border-radius: 6px; font-size: 10px"> Normal </span>';
+    if (type === "Grass")
+            return '<span style="background-color: '+color.Grass+'; width: 60px; height: 20px; text-align: center; color: white; border-radius: 6px; font-size: 10px"> Grass </span>';
+    if (type === "Poison")
+            return '<span style="background-color: '+color.Poison+'; width: 60px; height: 20px; text-align: center; color: white; border-radius: 6px; font-size: 10px"> Poison </span>';
+    if (type === "Psychic")
+            return '<span style="background-color: '+color.Psychic+'; width: 60px; height: 20px; text-align: center; color: white; border-radius: 6px; font-size: 10px"> Psychic </span>';
+    if (type === "Rock")
+            return '<span style="background-color: '+color.Rock+'; width: 60px; height: 20px; text-align: center; color: white; border-radius: 6px; font-size: 10px"> Rock </span>';
+    if (type === "Ground")
+            return '<span style="background-color: '+color.Ground+'; width: 60px; height: 20px; text-align: center; color: white; border-radius: 6px; font-size: 10px"> Ground </span>';
+    if (type === "Spectre")
+            return '<span style="background-color: '+color.Spectre+'; width: 60px; height: 20px; text-align: center; color: white; border-radius: 6px; font-size: 10px"> Spectre </span>';
+    if (type === "Flyinging")
+            return '<span style="background-color: '+color.Flying+'; width: 60px; height: 20px; text-align: center; color: white; border-radius: 6px; font-size: 10px"> Flying </span>';
+}
+
+function type2(pokemons) {
+    var type = pokemons.type[1];
+    var color = {Grass: "#008000", Poison: "#800080", Fire: "#840000", Water: "#000084", 
+        Fighting: "#C42301", Dragon: "#AC04B4", Electric: "#F2EF0B", Ice: "#0BEFF2", Bug: "#2CCE04", Normal: "#B2B2B2", Psychicchic: "#EE009B", Rock: "#A87303", 
+        Ground: "#E49C03", Spectre: "#8F03E4", Flying: "#04C9E1"}
+
+    if (type === "Fighting")
+        return '<span style="background-color: '+color.Fighting+'; width: 60px; height: 20px; text-align: center; color: white; border-radius: 6px; font-size: 10px"> Fighting </span>';
+    if (type === "Dragon")
+        return '<span style="background-color: '+color.Dragon+'; width: 60px; height: 20px; text-align: center; color: white; border-radius: 6px; font-size: 10px"> Dragon </span>';
+    if (type === "Water")
+        return '<span style="background-color: '+color.Water+'; width: 60px; height: 20px; text-align: center; color: white; border-radius: 6px; font-size: 10px"> Water </span>';
+    if (type === "Electric")
+        return '<span style="background-color: '+color.Electric+'; width: 60px; height: 20px; text-align: center; color: white; border-radius: 6px; font-size: 10px"> Electric </span>';
+    if (type === "Fire")
+        return '<span style="background-color: '+color.Fire+'; width: 60px; height: 20px; text-align: center; color: white; border-radius: 6px; font-size: 10px"> Fire </span>';
+    if (type === "Ice")
+        return '<span style="background-color: '+color.Ice+'; width: 60px; height: 20px; text-align: center; color: white; border-radius: 6px; font-size: 10px"> Ice </span>';										
+    if (type === "Bug")
+        return '<span style="background-color: '+color.Bug+'; width: 60px; height: 20px; text-align: center; color: white; border-radius: 6px; font-size: 10px"> Bug </span>';
+    if (type === "Normal")
+        return '<span style="background-color: '+color.Normal+'; width: 60px; height: 20px; text-align: center; color: white; border-radius: 6px; font-size: 10px"> Normal </span>';
+    if (type === "Grass")
+        return '<span style="background-color: '+color.Grass+'; width: 60px; height: 20px; text-align: center; color: white; border-radius: 6px; font-size: 10px"> Grass </span>';
+    if (type === "Poison")
+        return '<span style="background-color: '+color.Poison+'; width: 60px; height: 20px; text-align: center; color: white; border-radius: 6px; font-size: 10px"> Poison </span>';
+    if (type === "Psychicchic")
+        return '<span style="background-color: '+color.Psychicchic+'; width: 60px; height: 20px; text-align: center; color: white; border-radius: 6px; font-size: 10px"> Psychicchic </span>';
+    if (type === "Rock")
+        return '<span style="background-color: '+color.Rock+'; width: 60px; height: 20px; text-align: center; color: white; border-radius: 6px; font-size: 10px"> Rock </span>';
+    if (type === "Ground")
+        return '<span style="background-color: '+color.Ground+'; width: 60px; height: 20px; text-align: center; color: white; border-radius: 6px; font-size: 10px"> Ground </span>';
+    if (type === "Spectre")
+        return '<span style="background-color: '+color.Spectre+'; width: 60px; height: 20px; text-align: center; color: white; border-radius: 6px; font-size: 10px"> Spectre </span>';
+    if (type === "Flying")
+        return '<span style="background-color: '+color.Flying+'; width: 60px; height: 20px; text-align: center; color: white; border-radius: 6px; font-size: 10px"> Flying </span>';
+}
+
+function weak(pokemons) {
+    var type = pokemons.weaknesses[0];
+    var color = {Grass: "#008000", Poison: "#800080", Fire: "#840000", Water: "#000084", 
+                Fighting: "#C42301", Dragon: "#AC04B4", Electric: "#F2EF0B", Ice: "#0BEFF2", Bug: "#2CCE04", Normal: "#B2B2B2", Psychicchic: "#EE009B", Rock: "#A87303", 
+                Ground: "#E49C03", Spectre: "#8F03E4", Flying: "#04C9E1"}
+
+    if (type === "Fighting")
+            return '<span style="background-color: '+color.Fighting+'; width: 60px; height: 20px; text-align: center; color: white; border-radius: 6px; font-size: 10px"> Fighting </span>';
+    if (type === "Dragon")
+            return '<span style="background-color: '+color.Dragon+'; width: 60px; height: 20px; text-align: center; color: white; border-radius: 6px; font-size: 10px"> Dragon </span>';
+    if (type === "Water")
+            return '<span style="background-color: '+color.Water+'; width: 60px; height: 20px; text-align: center; color: white; border-radius: 6px; font-size: 10px"> Water </span>';
+    if (type === "Electric")
+            return '<span style="background-color: '+color.Electric+'; width: 60px; height: 20px; text-align: center; color: white; border-radius: 6px; font-size: 10px"> Electric </span>';
+    if (type === "Fire")
+            return '<span style="background-color: '+color.Fire+'; width: 60px; height: 20px; text-align: center; color: white; border-radius: 6px; font-size: 10px"> Fire </span>';
+    if (type === "Ice")
+            return '<span style="background-color: '+color.Ice+'; width: 60px; height: 20px; text-align: center; color: white; border-radius: 6px; font-size: 10px"> Ice </span>';										
+    if (type === "Bug")
+            return '<span style="background-color: '+color.Bug+'; width: 60px; height: 20px; text-align: center; color: white; border-radius: 6px; font-size: 10px"> Bug </span>';
+    if (type === "Normal")
+            return '<span style="background-color: '+color.Normal+'; width: 60px; height: 20px; text-align: center; color: white; border-radius: 6px; font-size: 10px"> Normal </span>';
+    if (type === "Grass")
+            return '<span style="background-color: '+color.Grass+'; width: 60px; height: 20px; text-align: center; color: white; border-radius: 6px; font-size: 10px"> Grass </span>';
+    if (type === "Poison")
+            return '<span style="background-color: '+color.Poison+'; width: 60px; height: 20px; text-align: center; color: white; border-radius: 6px; font-size: 10px"> Poison </span>';
+    if (type === "Psychicchic")
+            return '<span style="background-color: '+color.Psychicchic+'; width: 60px; height: 20px; text-align: center; color: white; border-radius: 6px; font-size: 10px"> Psychicchic </span>';
+    if (type === "Rock")
+            return '<span style="background-color: '+color.Rock+'; width: 60px; height: 20px; text-align: center; color: white; border-radius: 6px; font-size: 10px"> Rock </span>';
+    if (type === "Ground")
+            return '<span style="background-color: '+color.Ground+'; width: 60px; height: 20px; text-align: center; color: white; border-radius: 6px; font-size: 10px"> Ground </span>';
+    if (type === "Spectre")
+            return '<span style="background-color: '+color.Spectre+'; width: 60px; height: 20px; text-align: center; color: white; border-radius: 6px; font-size: 10px"> Spectre </span>';
+    if (type === "Flyinging")
+            return '<span style="background-color: '+color.Flyinging+'; width: 60px; height: 20px; text-align: center; color: white; border-radius: 6px; font-size: 10px"> Flyinging </span>';
+}
+
+function weak2(pokemons) {
+    var type = pokemons.weaknesses[1];
+    var color = {Grass: "#008000", Poison: "#800080", Fire: "#840000", Water: "#000084", 
+                Fighting: "#C42301", Dragon: "#AC04B4", Electric: "#F2EF0B", Ice: "#0BEFF2", Bug: "#2CCE04", Normal: "#B2B2B2", Psychicchic: "#EE009B", Rock: "#A87303", 
+                Ground: "#E49C03", Spectre: "#8F03E4", Flyinging: "#04C9E1"}
+
+    if (type === "Fighting")
+            return '<span style="background-color: '+color.Fighting+'; width: 60px; height: 20px; text-align: center; color: white; border-radius: 6px; font-size: 10px"> Fighting </span>';
+    if (type === "Dragon")
+            return '<span style="background-color: '+color.Dragon+'; width: 60px; height: 20px; text-align: center; color: white; border-radius: 6px; font-size: 10px"> Dragon </span>';
+    if (type === "Water")
+            return '<span style="background-color: '+color.Water+'; width: 60px; height: 20px; text-align: center; color: white; border-radius: 6px; font-size: 10px"> Water </span>';
+    if (type === "Electric")
+            return '<span style="background-color: '+color.Electric+'; width: 60px; height: 20px; text-align: center; color: white; border-radius: 6px; font-size: 10px"> Electric </span>';
+    if (type === "Fire")
+            return '<span style="background-color: '+color.Fire+'; width: 60px; height: 20px; text-align: center; color: white; border-radius: 6px; font-size: 10px"> Fire </span>';
+    if (type === "Ice")
+            return '<span style="background-color: '+color.Ice+'; width: 60px; height: 20px; text-align: center; color: white; border-radius: 6px; font-size: 10px"> Ice </span>';										
+    if (type === "Bug")
+            return '<span style="background-color: '+color.Bug+'; width: 60px; height: 20px; text-align: center; color: white; border-radius: 6px; font-size: 10px"> Bug </span>';
+    if (type === "Normal")
+            return '<span style="background-color: '+color.Normal+'; width: 60px; height: 20px; text-align: center; color: white; border-radius: 6px; font-size: 10px"> Normal </span>';
+    if (type === "Grass")
+            return '<span style="background-color: '+color.Grass+'; width: 60px; height: 20px; text-align: center; color: white; border-radius: 6px; font-size: 10px"> Grass </span>';
+    if (type === "Poison")
+            return '<span style="background-color: '+color.Poison+'; width: 60px; height: 20px; text-align: center; color: white; border-radius: 6px; font-size: 10px"> Poison </span>';
+    if (type === "Psychicchic")
+            return '<span style="background-color: '+color.Psychicchic+'; width: 60px; height: 20px; text-align: center; color: white; border-radius: 6px; font-size: 10px"> Psychicchic </span>';
+    if (type === "Rock")
+            return '<span style="background-color: '+color.Rock+'; width: 60px; height: 20px; text-align: center; color: white; border-radius: 6px; font-size: 10px"> Rock </span>';
+    if (type === "Ground")
+            return '<span style="background-color: '+color.Ground+'; width: 60px; height: 20px; text-align: center; color: white; border-radius: 6px; font-size: 10px"> Ground </span>';
+    if (type === "Spectre")
+            return '<span style="background-color: '+color.Spectre+'; width: 60px; height: 20px; text-align: center; color: white; border-radius: 6px; font-size: 10px"> Spectre </span>';
+    if (type === "Flyinging")
+            return '<span style="background-color: '+color.Flyinging+'; width: 60px; height: 20px; text-align: center; color: white; border-radius: 6px; font-size: 10px"> Flyinging </span>';
+}
+
+function weak3(pokemons) {
+    var type = pokemons.weaknesses[2];
+    var color = {Grass: "#008000", Poison: "#800080", Fire: "#840000", Water: "#000084", 
+                Fighting: "#C42301", Dragon: "#AC04B4", Electric: "#F2EF0B", Ice: "#0BEFF2", Bug: "#2CCE04", Normal: "#B2B2B2", Psychicchic: "#EE009B", Rock: "#A87303", 
+                Ground: "#E49C03", Spectre: "#8F03E4", Flyinging: "#04C9E1"}
+
+    if (type === "Fighting")
+            return '<span style="background-color: '+color.Fighting+'; width: 60px; height: 20px; text-align: center; color: white; border-radius: 6px; font-size: 10px"> Fighting </span>';
+    if (type === "Dragon")
+            return '<span style="background-color: '+color.Dragon+'; width: 60px; height: 20px; text-align: center; color: white; border-radius: 6px; font-size: 10px"> Dragon </span>';
+    if (type === "Water")
+            return '<span style="background-color: '+color.Water+'; width: 60px; height: 20px; text-align: center; color: white; border-radius: 6px; font-size: 10px"> Water </span>';
+    if (type === "Electric")
+            return '<span style="background-color: '+color.Electric+'; width: 60px; height: 20px; text-align: center; color: white; border-radius: 6px; font-size: 10px"> Electric </span>';
+    if (type === "Fire")
+            return '<span style="background-color: '+color.Fire+'; width: 60px; height: 20px; text-align: center; color: white; border-radius: 6px; font-size: 10px"> Fire </span>';
+    if (type === "Ice")
+            return '<span style="background-color: '+color.Ice+'; width: 60px; height: 20px; text-align: center; color: white; border-radius: 6px; font-size: 10px"> Ice </span>';										
+    if (type === "Bug")
+            return '<span style="background-color: '+color.Bug+'; width: 60px; height: 20px; text-align: center; color: white; border-radius: 6px; font-size: 10px"> Bug </span>';
+    if (type === "Normal")
+            return '<span style="background-color: '+color.Normal+'; width: 60px; height: 20px; text-align: center; color: white; border-radius: 6px; font-size: 10px"> Normal </span>';
+    if (type === "Grass")
+            return '<span style="background-color: '+color.Grass+'; width: 60px; height: 20px; text-align: center; color: white; border-radius: 6px; font-size: 10px"> Grass </span>';
+    if (type === "Poison")
+            return '<span style="background-color: '+color.Poison+'; width: 60px; height: 20px; text-align: center; color: white; border-radius: 6px; font-size: 10px"> Poison </span>';
+    if (type === "Psychicchic")
+            return '<span style="background-color: '+color.Psychicchic+'; width: 60px; height: 20px; text-align: center; color: white; border-radius: 6px; font-size: 10px"> Psychicchic </span>';
+    if (type === "Rock")
+            return '<span style="background-color: '+color.Rock+'; width: 60px; height: 20px; text-align: center; color: white; border-radius: 6px; font-size: 10px"> Rock </span>';
+    if (type === "Ground")
+            return '<span style="background-color: '+color.Ground+'; width: 60px; height: 20px; text-align: center; color: white; border-radius: 6px; font-size: 10px"> Ground </span>';
+    if (type === "Spectre")
+            return '<span style="background-color: '+color.Spectre+'; width: 60px; height: 20px; text-align: center; color: white; border-radius: 6px; font-size: 10px"> Spectre </span>';
+    if (type === "Flyinging")
+            return '<span style="background-color: '+color.Flyinging+'; width: 60px; height: 20px; text-align: center; color: white; border-radius: 6px; font-size: 10px"> Flyinging </span>';
+}
+
+function weak4(pokemons) {
+    var type = pokemons.weaknesses[3];
+    var color = {Grass: "#008000", Poison: "#800080", Fire: "#840000", Water: "#000084", 
+                Fighting: "#C42301", Dragon: "#AC04B4", Electric: "#F2EF0B", Ice: "#0BEFF2", Bug: "#2CCE04", Normal: "#B2B2B2", Psychicchic: "#EE009B", Rock: "#A87303", 
+                Ground: "#E49C03", Spectre: "#8F03E4", Flyinging: "#04C9E1"}
+
+    if (type === "Fighting")
+            return '<span style="background-color: '+color.Fighting+'; width: 60px; height: 20px; text-align: center; color: white; border-radius: 6px; font-size: 10px"> Fighting </span>';
+    if (type === "Dragon")
+            return '<span style="background-color: '+color.Dragon+'; width: 60px; height: 20px; text-align: center; color: white; border-radius: 6px; font-size: 10px"> Dragon </span>';
+    if (type === "Water")
+            return '<span style="background-color: '+color.Water+'; width: 60px; height: 20px; text-align: center; color: white; border-radius: 6px; font-size: 10px"> Water </span>';
+    if (type === "Electric")
+            return '<span style="background-color: '+color.Electric+'; width: 60px; height: 20px; text-align: center; color: white; border-radius: 6px; font-size: 10px"> Electric </span>';
+    if (type === "Fire")
+            return '<span style="background-color: '+color.Fire+'; width: 60px; height: 20px; text-align: center; color: white; border-radius: 6px; font-size: 10px"> Fire </span>';
+    if (type === "Ice")
+            return '<span style="background-color: '+color.Ice+'; width: 60px; height: 20px; text-align: center; color: white; border-radius: 6px; font-size: 10px"> Ice </span>';										
+    if (type === "Bug")
+            return '<span style="background-color: '+color.Bug+'; width: 60px; height: 20px; text-align: center; color: white; border-radius: 6px; font-size: 10px"> Bug </span>';
+    if (type === "Normal")
+            return '<span style="background-color: '+color.Normal+'; width: 60px; height: 20px; text-align: center; color: white; border-radius: 6px; font-size: 10px"> Normal </span>';
+    if (type === "Grass")
+            return '<span style="background-color: '+color.Grass+'; width: 60px; height: 20px; text-align: center; color: white; border-radius: 6px; font-size: 10px"> Grass </span>';
+    if (type === "Poison")
+            return '<span style="background-color: '+color.Poison+'; width: 60px; height: 20px; text-align: center; color: white; border-radius: 6px; font-size: 10px"> Poison </span>';
+    if (type === "Psychicchic")
+            return '<span style="background-color: '+color.Psychicchic+'; width: 60px; height: 20px; text-align: center; color: white; border-radius: 6px; font-size: 10px"> Psychicchic </span>';
+    if (type === "Rock")
+            return '<span style="background-color: '+color.Rock+'; width: 60px; height: 20px; text-align: center; color: white; border-radius: 6px; font-size: 10px"> Rock </span>';
+    if (type === "Ground")
+            return '<span style="background-color: '+color.Ground+'; width: 60px; height: 20px; text-align: center; color: white; border-radius: 6px; font-size: 10px"> Ground </span>';
+    if (type === "Spectre")
+            return '<span style="background-color: '+color.Spectre+'; width: 60px; height: 20px; text-align: center; color: white; border-radius: 6px; font-size: 10px"> Spectre </span>';
+    if (type === "Flyinging")
+            return '<span style="background-color: '+color.Flyinging+'; width: 60px; height: 20px; text-align: center; color: white; border-radius: 6px; font-size: 10px"> Flyinging </span>';
+}
+
+function weak5(pokemons) {
+    var type = pokemons.weaknesses[4];
+    var color = {Grass: "#008000", Poison: "#800080", Fire: "#840000", Water: "#000084", 
+                Fighting: "#C42301", Dragon: "#AC04B4", Electric: "#F2EF0B", Ice: "#0BEFF2", Bug: "#2CCE04", Normal: "#B2B2B2", Psychicchic: "#EE009B", Rock: "#A87303", 
+                Ground: "#E49C03", Spectre: "#8F03E4", Flyinging: "#04C9E1"}
+
+    if (type === "Fighting")
+            return '<span style="background-color: '+color.Fighting+'; width: 60px; height: 20px; text-align: center; color: white; border-radius: 6px; font-size: 10px"> Fighting </span>';
+    if (type === "Dragon")
+            return '<span style="background-color: '+color.Dragon+'; width: 60px; height: 20px; text-align: center; color: white; border-radius: 6px; font-size: 10px"> Dragon </span>';
+    if (type === "Water")
+            return '<span style="background-color: '+color.Water+'; width: 60px; height: 20px; text-align: center; color: white; border-radius: 6px; font-size: 10px"> Water </span>';
+    if (type === "Electric")
+            return '<span style="background-color: '+color.Electric+'; width: 60px; height: 20px; text-align: center; color: white; border-radius: 6px; font-size: 10px"> Electric </span>';
+    if (type === "Fire")
+            return '<span style="background-color: '+color.Fire+'; width: 60px; height: 20px; text-align: center; color: white; border-radius: 6px; font-size: 10px"> Fire </span>';
+    if (type === "Ice")
+            return '<span style="background-color: '+color.Ice+'; width: 60px; height: 20px; text-align: center; color: white; border-radius: 6px; font-size: 10px"> Ice </span>';										
+    if (type === "Bug")
+            return '<span style="background-color: '+color.Bug+'; width: 60px; height: 20px; text-align: center; color: white; border-radius: 6px; font-size: 10px"> Bug </span>';
+    if (type === "Normal")
+            return '<span style="background-color: '+color.Normal+'; width: 60px; height: 20px; text-align: center; color: white; border-radius: 6px; font-size: 10px"> Normal </span>';
+    if (type === "Grass")
+            return '<span style="background-color: '+color.Grass+'; width: 60px; height: 20px; text-align: center; color: white; border-radius: 6px; font-size: 10px"> Grass </span>';
+    if (type === "Poison")
+            return '<span style="background-color: '+color.Poison+'; width: 60px; height: 20px; text-align: center; color: white; border-radius: 6px; font-size: 10px"> Poison </span>';
+    if (type === "Psychicchic")
+            return '<span style="background-color: '+color.Psychicchic+'; width: 60px; height: 20px; text-align: center; color: white; border-radius: 6px; font-size: 10px"> Psychicchic </span>';
+    if (type === "Rock")
+            return '<span style="background-color: '+color.Rock+'; width: 60px; height: 20px; text-align: center; color: white; border-radius: 6px; font-size: 10px"> Rock </span>';
+    if (type === "Ground")
+            return '<span style="background-color: '+color.Ground+'; width: 60px; height: 20px; text-align: center; color: white; border-radius: 6px; font-size: 10px"> Ground </span>';
+    if (type === "Spectre")
+            return '<span style="background-color: '+color.Spectre+'; width: 60px; height: 20px; text-align: center; color: white; border-radius: 6px; font-size: 10px"> Spectre </span>';
+    if (type === "Flyinging")
+            return '<span style="background-color: '+color.Flyinging+'; width: 60px; height: 20px; text-align: center; color: white; border-radius: 6px; font-size: 10px"> Flyinging </span>';
+}
+
+function weak6(pokemons) {
+    var type = pokemons.weaknesses[5];
+    var color = {Grass: "#008000", Poison: "#800080", Fire: "#840000", Water: "#000084", 
+                Fighting: "#C42301", Dragon: "#AC04B4", Electric: "#F2EF0B", Ice: "#0BEFF2", Bug: "#2CCE04", Normal: "#B2B2B2", Psychicchic: "#EE009B", Rock: "#A87303", 
+                Ground: "#E49C03", Spectre: "#8F03E4", Flyinging: "#04C9E1"}
+
+    if (type === "Fighting")
+            return '<span style="background-color: '+color.Fighting+'; width: 60px; height: 20px; text-align: center; color: white; border-radius: 6px; font-size: 10px"> Fighting </span>';
+    if (type === "Dragon")
+            return '<span style="background-color: '+color.Dragon+'; width: 60px; height: 20px; text-align: center; color: white; border-radius: 6px; font-size: 10px"> Dragon </span>';
+    if (type === "Water")
+            return '<span style="background-color: '+color.Water+'; width: 60px; height: 20px; text-align: center; color: white; border-radius: 6px; font-size: 10px"> Water </span>';
+    if (type === "Electric")
+            return '<span style="background-color: '+color.Electric+'; width: 60px; height: 20px; text-align: center; color: white; border-radius: 6px; font-size: 10px"> Electric </span>';
+    if (type === "Fire")
+            return '<span style="background-color: '+color.Fire+'; width: 60px; height: 20px; text-align: center; color: white; border-radius: 6px; font-size: 10px"> Fire </span>';
+    if (type === "Ice")
+            return '<span style="background-color: '+color.Ice+'; width: 60px; height: 20px; text-align: center; color: white; border-radius: 6px; font-size: 10px"> Ice </span>';										
+    if (type === "Bug")
+            return '<span style="background-color: '+color.Bug+'; width: 60px; height: 20px; text-align: center; color: white; border-radius: 6px; font-size: 10px"> Bug </span>';
+    if (type === "Normal")
+            return '<span style="background-color: '+color.Normal+'; width: 60px; height: 20px; text-align: center; color: white; border-radius: 6px; font-size: 10px"> Normal </span>';
+    if (type === "Grass")
+            return '<span style="background-color: '+color.Grass+'; width: 60px; height: 20px; text-align: center; color: white; border-radius: 6px; font-size: 10px"> Grass </span>';
+    if (type === "Poison")
+            return '<span style="background-color: '+color.Poison+'; width: 60px; height: 20px; text-align: center; color: white; border-radius: 6px; font-size: 10px"> Poison </span>';
+    if (type === "Psychicchic")
+            return '<span style="background-color: '+color.Psychicchic+'; width: 60px; height: 20px; text-align: center; color: white; border-radius: 6px; font-size: 10px"> Psychicchic </span>';
+    if (type === "Rock")
+            return '<span style="background-color: '+color.Rock+'; width: 60px; height: 20px; text-align: center; color: white; border-radius: 6px; font-size: 10px"> Rock </span>';
+    if (type === "Ground")
+            return '<span style="background-color: '+color.Ground+'; width: 60px; height: 20px; text-align: center; color: white; border-radius: 6px; font-size: 10px"> Ground </span>';
+    if (type === "Spectre")
+            return '<span style="background-color: '+color.Spectre+'; width: 60px; height: 20px; text-align: center; color: white; border-radius: 6px; font-size: 10px"> Spectre </span>';
+    if (type === "Flyinging")
+			return '<span style="background-color: '+color.Flyinging+'; width: 60px; height: 20px; text-align: center; color: white; border-radius: 6px; font-size: 10px"> Flyinging </span>';
+	if (type === "undefined")
+            return '<span style="background-color: '+color.Flyinging+'; width: 60px; height: 20px; text-align: center; color: white; border-radius: 6px; font-size: 10px"> GNGNGNGNG </span>';
+}
 
 		function afficheResultat() {
 			const tableauResultat = trouverPokemon(this.value, pokemons);
 			const html = tableauResultat.map(pokemon => {
 				return `
 					<li>
-						<span>${pokemon.name}</span>
 						<img src="${pokemon.img}" width="42" height="42" />
-						<span>${pokemon.height}</span>
-						<span>${pokemon.weight}</span>
+						<span>${pokemon.name}</span>
+							${type(pokemon)} 
+							${type2(pokemon)}
+							${weak(pokemon)}
+							${weak2(pokemon)}
+							${weak3(pokemon)}
+							${weak4(pokemon)}
+							${weak5(pokemon)}
+							${weak6(pokemon)}
 					</li>
 				`;
 			}).join('');
 			resultat.innerHTML = html;
 		}
+
+/*		function appendToDiv(div) {
+			var myDiv = document.getElementsByClassName(div)
+			myDiv.innerHTML += type(pokemon)
+			myDiv.innerHTML += type2(pokemon)
+			myDiv.innerHTML += weak(pokemon)
+		} */
 
 		const input = document.querySelector('input');
 		const resultat = document.querySelector('ul');
